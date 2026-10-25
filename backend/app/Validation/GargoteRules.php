@@ -14,6 +14,18 @@ namespace App\Validation;
  */
 class GargoteRules
 {
+    /** Accepte true, false, 0, 1, "0" ou "1". */
+    public function est_booleen($valeur, ?string &$erreur = null): bool
+    {
+        if (in_array($valeur, [true, false, 0, 1, '0', '1'], true)) {
+            return true;
+        }
+
+        $erreur = 'La valeur doit être vraie ou fausse.';
+
+        return false;
+    }
+
     /**
      * Numéro de mobile malgache : 10 chiffres commençant par 032, 033, 034, 037 ou 038.
      * Les espaces sont tolérés : « 034 12 345 67 » est accepté.

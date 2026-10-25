@@ -26,26 +26,36 @@ class PlatModel extends Model
     // Liste des règles disponibles :
     // https://codeigniter.com/user_guide/libraries/validation.html#available-rules
     protected $validationRules = [
-        'nom'          => 'required|max_length[100]',
-        'prix'         => 'required|integer',
-        'id_categorie' => 'required|integer',
-        'description'  => 'max_length[255]',
+        'id'           => 'permit_empty|is_natural_no_zero',
+        'nom'          => 'required|min_length[2]|max_length[100]|is_unique[plat.nom,id,{id}]',
+        'prix'         => 'required|integer|greater_than[0]|less_than_equal_to[100000]',
+        'id_categorie' => 'required|integer|is_not_unique[categorie.id]',
+        'description'  => 'permit_empty|max_length[255]',
+        'disponible'   => 'permit_empty|est_booleen',
     ];
 
     protected $validationMessages = [
         'nom' => [
             'required'   => 'Le nom du plat est obligatoire.',
+            'min_length' => 'Le nom doit contenir au moins 2 caractères.',
             'max_length' => 'Le nom ne doit pas dépasser 100 caractères.',
+            'is_unique'  => 'Un plat porte déjà ce nom.',
         ],
         'prix' => [
-            'required' => 'Le prix est obligatoire.',
-            'integer'  => 'Le prix doit être un nombre entier (en Ariary).',
+            'required'            => 'Le prix est obligatoire.',
+            'integer'             => 'Le prix doit être un nombre entier en Ariary.',
+            'greater_than'        => 'Le prix doit être supérieur à 0 Ar.',
+            'less_than_equal_to'  => 'Le prix ne peut pas dépasser 100 000 Ar.',
         ],
         'id_categorie' => [
-            'required' => 'Choisissez une catégorie.',
+            'required'       => 'Choisissez une catégorie.',
+            'is_not_unique'  => 'Cette catégorie n’existe pas.',
         ],
         'description' => [
             'max_length' => 'La description ne doit pas dépasser 255 caractères.',
+        ],
+        'disponible' => [
+            'est_booleen' => 'La disponibilité doit être vraie ou fausse.',
         ],
     ];
 
