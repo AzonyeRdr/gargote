@@ -16,13 +16,16 @@ class Plats extends ApiController
     /**
      * GET /api/plats
      * GET /api/plats?categorie=2   (filtre facultatif)
+     * GET /api/plats?disponible=1  (filtre facultatif)
      */
     public function index()
     {
         $idCategorie = $this->request->getGet('categorie');
+        $disponible  = $this->request->getGet('disponible');
 
         return $this->respond($this->plats->listerAvecCategorie(
-            $idCategorie !== null ? (int) $idCategorie : null
+            $idCategorie !== null ? (int) $idCategorie : null,
+            $disponible !== null ? $disponible === '1' : null
         ));
     }
 
