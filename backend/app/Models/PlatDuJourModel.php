@@ -22,6 +22,18 @@ class PlatDuJourModel extends Model
         return $this->db->query($sql)->getRowArray() ?: null;
     }
 
+    /** Renvoie les plats du jour des sept derniers jours. */
+    public function historique(): array
+    {
+        $sql = 'SELECT pdj.date_jour, pdj.id_plat, p.nom, p.prix, p.description
+                FROM plat_du_jour pdj
+                JOIN plat p ON p.id = pdj.id_plat
+                WHERE pdj.date_jour BETWEEN CURRENT_DATE - 6 AND CURRENT_DATE
+                ORDER BY pdj.date_jour DESC';
+
+        return $this->db->query($sql)->getResultArray();
+    }
+
     /** Choisit ou remplace le plat du jour. */
     public function definirAujourdHui(int $idPlat): void
     {

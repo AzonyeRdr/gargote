@@ -21,6 +21,11 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], static function ($
     $routes->put('plats/(:num)', 'Plats::update/$1');
     $routes->delete('plats/(:num)', 'Plats::delete/$1');
 
+    // Plat du jour
+    $routes->get('plat-du-jour', 'PlatDuJour::index');
+    $routes->put('plat-du-jour', 'PlatDuJour::definir');
+    $routes->get('plat-du-jour/historique', 'PlatDuJour::historique');
+
     // Commandes
     $routes->get('commandes', 'Commandes::index');
     $routes->get('commandes/(:num)', 'Commandes::show/$1');
