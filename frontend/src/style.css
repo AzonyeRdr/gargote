@@ -237,12 +237,23 @@ tr:focus-visible {
 }
 
 .champ input,
-.champ select {
+.champ select,
+.champ textarea {
   padding: 0.55rem 0.7rem;
   border: 1px solid var(--trait);
   border-radius: var(--rayon);
   font: inherit;
   background: var(--papier);
+}
+
+.champ-case {
+  flex-direction: row;
+  align-items: center;
+}
+
+.champ-case input[type="checkbox"] {
+  width: 1.2rem;
+  height: 1.2rem;
 }
 
 .champ-court input {
