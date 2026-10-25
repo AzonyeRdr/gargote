@@ -37,6 +37,21 @@ async function supprimer(plat) {
   }
 }
 
+async function basculerDisponibilite(plat) {
+  try {
+    await api.plats.modifier(plat.id, {
+      nom: plat.nom,
+      prix: plat.prix,
+      id_categorie: plat.id_categorie,
+      description: plat.description,
+      disponible: !plat.disponible,
+    })
+    await charger()
+  } catch (e) {
+    message.value = { type: 'erreur', texte: e.message }
+  }
+}
+
 onMounted(charger)
 </script>
 
@@ -44,7 +59,8 @@ onMounted(charger)
   <p v-if="message" class="alerte" :class="`alerte-${message.type}`">{{ message.texte }}</p>
 
   <div class="grille">
-    <PlatList :plats="plats" @modifier="platSelectionne = $event" @supprimer="supprimer" />
+    <PlatList :plats="plats" @modifier="platSelectionne = $event" @supprimer="supprimer"
+      @basculer="basculerDisponibilite" />
 
     <PlatForm :plat="platSelectionne" :categories="categories" @enregistre="surEnregistrement"
       @annule="platSelectionne = null" />
