@@ -45,6 +45,12 @@ export const api = {
     supprimer: (id) => requete('DELETE', `/plats/${id}`),
   },
 
+  platDuJour: {
+    lire: () => requete('GET', '/plat-du-jour'),
+    definir: (idPlat) => requete('PUT', '/plat-du-jour', { id_plat: idPlat }),
+    historique: () => requete('GET', '/plat-du-jour/historique'),
+  },
+
   commandes: {
     lister: () => requete('GET', '/commandes'),
     detail: (id) => requete('GET', `/commandes/${id}`),
