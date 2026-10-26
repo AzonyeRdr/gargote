@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { api } from '../api'
 import { ariary } from '../utils/format'
 
@@ -14,7 +14,9 @@ const idSelectionne = ref('')
 const erreur = ref('')
 const enCours = ref(false)
 
-const platsDisponibles = computed(() => props.plats.filter((plat) => plat.disponible))
+function platsDisponibles() {
+  return props.plats.filter((plat) => plat.disponible)
+}
 
 async function charger() {
   try {
@@ -56,7 +58,7 @@ onMounted(charger)
       <div class="plat-du-jour-choix">
         <select v-model.number="idSelectionne">
           <option value="" disabled>Choisir un plat…</option>
-          <option v-for="plat in platsDisponibles" :key="plat.id" :value="plat.id">
+          <option v-for="plat in platsDisponibles()" :key="plat.id" :value="plat.id">
             {{ plat.nom }}
           </option>
         </select>
