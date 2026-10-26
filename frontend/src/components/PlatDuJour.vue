@@ -22,7 +22,12 @@ async function charger() {
   try {
     platDuJour.value = await api.platDuJour.lire()
   } catch (e) {
-    erreur.value = e.message
+    if (e.status === 404) {
+      platDuJour.value = null
+      erreur.value = ''
+    } else {
+      erreur.value = e.message
+    }
   }
 }
 
@@ -48,7 +53,7 @@ onMounted(charger)
     <h2>Plat du jour</h2>
 
     <p v-if="erreur" class="erreur">{{ erreur }}</p>
-    <p v-else-if="!platDuJour">Aucun plat du jour n’a encore été choisi.</p>
+    <p v-else-if="!platDuJour">Aucun plat du jour pour le moment.</p>
     <p v-else-if="modifiable" class="plat-du-jour-nom">
       {{ platDuJour.nom }} — {{ ariary(platDuJour.prix) }}
     </p>
