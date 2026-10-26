@@ -248,6 +248,11 @@ tr:focus-visible {
   background: var(--ardoise-clair);
 }
 
+.ardoise-choix:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .ardoise .vide {
   color: var(--craie);
 }
